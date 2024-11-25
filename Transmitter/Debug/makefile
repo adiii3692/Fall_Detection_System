@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := dualUsart
+BUILD_ARTIFACT_NAME := sensor
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-dualUsart.elf \
+sensor.elf \
 
 MAP_FILES += \
-dualUsart.map \
+sensor.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-dualUsart.list \
+sensor.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: dualUsart.elf secondary-outputs
+main-build: sensor.elf secondary-outputs
 
 # Tool invocations
-dualUsart.elf dualUsart.map: $(OBJS) $(USER_OBJS) C:\Users\adina\STM32CubeIDE\workspace_1.16.1\dualUsart\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "dualUsart.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\adina\STM32CubeIDE\workspace_1.16.1\dualUsart\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="dualUsart.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+sensor.elf sensor.map: $(OBJS) $(USER_OBJS) C:\Users\adina\STM32CubeIDE\workspace_1.16.1\sensor\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "sensor.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\adina\STM32CubeIDE\workspace_1.16.1\sensor\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="sensor.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-dualUsart.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "dualUsart.list"
+sensor.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "sensor.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) default.size.stdout dualUsart.elf dualUsart.list dualUsart.map
+	-$(RM) default.size.stdout sensor.elf sensor.list sensor.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
