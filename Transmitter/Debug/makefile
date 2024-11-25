@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := sensor
+BUILD_ARTIFACT_NAME := halfduplexUsart
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-sensor.elf \
+halfduplexUsart.elf \
 
 MAP_FILES += \
-sensor.map \
+halfduplexUsart.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-sensor.list \
+halfduplexUsart.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: sensor.elf secondary-outputs
+main-build: halfduplexUsart.elf secondary-outputs
 
 # Tool invocations
-sensor.elf sensor.map: $(OBJS) $(USER_OBJS) C:\Users\adina\STM32CubeIDE\workspace_1.16.1\sensor\STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "sensor.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\adina\STM32CubeIDE\workspace_1.16.1\sensor\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="sensor.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+halfduplexUsart.elf halfduplexUsart.map: $(OBJS) $(USER_OBJS) /Users/aditya_nair/STM32CubeIDE/halfduplexUsart/STM32F401RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "halfduplexUsart.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/aditya_nair/STM32CubeIDE/halfduplexUsart/STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="halfduplexUsart.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-sensor.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "sensor.list"
+halfduplexUsart.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "halfduplexUsart.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) default.size.stdout sensor.elf sensor.list sensor.map
+	-$(RM) default.size.stdout halfduplexUsart.elf halfduplexUsart.list halfduplexUsart.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
