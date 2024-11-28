@@ -1,4 +1,4 @@
-# VitaLink
+# Elderly Fall Detection System
 
 ## Tech Used:
 1. STM32 Microcontrollers
